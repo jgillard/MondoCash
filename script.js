@@ -1,5 +1,4 @@
-var account_id;
-var access_token;
+'use strict';
 
 $("#home-header, #cash-header").click(function() {
   $("#home-page").toggle();
@@ -21,7 +20,7 @@ $("#cash-form").submit(function() {
 
 function feedPost(title, body) {
   var data = {
-    account_id: account_id,
+    account_id: localStorage.getItem("account_id"),
     type: "basic",
     // url: ""
     params: {
@@ -37,7 +36,7 @@ function feedPost(title, body) {
     url: "https://api.getmondo.co.uk/feed",
     data: data,
     dataType : "json",
-    beforeSend: function(xhr){xhr.setRequestHeader("Authorization", "Bearer " + access_token);},
+    beforeSend: function(xhr){xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("access_token"));},
     success: function(data, textStatus, xhr){
       if (xhr.status !== 200) alert(xhr.status, textStatus);
       else {
@@ -53,7 +52,7 @@ function queryMondo(url, data, callback) {
     url: url,
     data: data,
     dataType : "json",
-    beforeSend: function(xhr){xhr.setRequestHeader("Authorization", "Bearer " + access_token);},
+    beforeSend: function(xhr){xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("access_token"));},
     success: function(data){
       console.log(data);
       callback(data);
@@ -66,8 +65,8 @@ function queryMondo(url, data, callback) {
 
 $("#account-button").click(function() {
   queryMondo("https://api.getmondo.co.uk/accounts", null, function(data) {
-    account_id = data.accounts[0].id;
-    if (account_id) {
+    localStorage.setItem("account_id", data.accounts[0].id);
+    if (localStorage.getItem("account_id")) {
       $("#home-header").fadeOut(600, function() { $(this).html("That's a nice name :)").fadeIn(); });
       $("#account-button").text(data.accounts[0].description);
       $("#balance-button").prop("disabled", false);
@@ -79,7 +78,7 @@ $("#account-button").click(function() {
 });
 
 $("#balance-button").click(function() {
-  queryMondo("https://api.getmondo.co.uk/balance", {account_id: account_id}, function(data) {
+  queryMondo("https://api.getmondo.co.uk/balance", {account_id: localStorage.getItem("account_id")}, function(data) {
     if (data.balance) {
       var message = data.balance > 5000 ? "Life is good :D" : "Oh dear...";
       $("#home-header").fadeOut(600, function() { $("#home-header").html(message).fadeIn(); });
@@ -90,7 +89,7 @@ $("#balance-button").click(function() {
 });
 
 $("#transaction-button").click(function() {
-  queryMondo("https://api.getmondo.co.uk/transactions", {account_id: account_id, "expand[]": "merchant"}, function(data) {
+  queryMondo("https://api.getmondo.co.uk/transactions", {account_id: localStorage.getItem("account_id"), "expand[]": "merchant"}, function(data) {
     if (data.transactions) {
       var latest = data.transactions[data.transactions.length - 1];
       console.log(latest);
@@ -106,9 +105,9 @@ $("#transaction-button").click(function() {
 /*** ON WINDOW LOAD, GET ACCESS KEY ***/
 
 window.onload = function() {
-  var expected_state = "70tbc17xyt9732ytc4780t23479";
+  localStorage.setItem("expected_state", "70tbc17xyt9732ytc4780t23479");
   var params = getUrlVars();
-  if (params.state !== expected_state) {
+  if (params.state !== localStorage.getItem("expected_state")) {
     alert("state does not match expected");
   } else {
     getAccessKey(params.code);
@@ -135,15 +134,17 @@ function getAccessKey(code) {
   $.ajax({
     url: "https://5bvpwp95yb.execute-api.eu-west-1.amazonaws.com/prod/mondo-lambda-auth",
     data: data,
-    success: function(data){
-      console.log(data);
-      access_token = data.access_token;
-      if (access_token) {
-        $("#account-button").prop('disabled', false);
-      } else {
-        alert("Something went wrong");
-      }
-    },
+    success: gotAccessKey,
     failure: function(errMsg) { alert(errMsg); }
   });
+}
+
+function gotAccessKey(data){
+  console.log(data);
+  localStorage.setItem("access_token", data.access_token);
+  if (localStorage.getItem("access_token")) {
+    $("#account-button").prop('disabled', false);
+  } else {
+    alert("Something went wrong");
+  }
 }
