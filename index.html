@@ -11,23 +11,52 @@
   </head>
   <body>
     <div class="container">
-      
-      <div id="login">
+
+    <div id="login-page" class="hidden">
         <h1>Mondo Cash Tracker</h1>
         <form id="login_redirect_form" action="https://auth.getmondo.co.uk/" method="get">
           <input type="hidden" name="client_id" value="oauthclient_000095McRaxSoz81hJkmdl" /> 
-          <input type="hidden" name="redirect_uri" value="https://dl.dropboxusercontent.com/u/2666739/MondoCash/main.html" /> 
+          <input type="hidden" name="redirect_uri" value="https://dl.dropboxusercontent.com/u/2666739/MondoCash/index.html" /> 
           <input type="hidden" name="response_type" value="code" /> 
-          <input type="hidden" name="state" value="70tbc17xyt9732ytc4780t23479" /> 
+          <input type="hidden" name="state" id="state" value="" /> 
           <button class="btn btn-default btn-block" id="login-button">Login to Mondo</button>
         </form>
         <p>by James Gillard</p>
       </div>
+    
+      <div id="home-page" class="hidden">
+        <h1 id="home-header">Hi there!</h1>
+        <button class="btn btn-default btn-block" id="account-button" disabled="disabled">
+          <div id="account-button-div">What's my name?</div>
+        </button>
+        <button class="btn btn-default btn-block" id="balance-button" disabled="disabled">
+          <div id="balance-button-div">Am I broke?</div>
+        </button>
+        <button class="btn btn-default btn-block" id="transaction-button" disabled="disabled">
+          <div id="transaction-button-div">Where did the money go?</div>
+        </button>
+      </div>
       
+      <div id="cash-page" class="hidden">
+        <h1 id="cash-header">What did you buy?</h1>
+        <form id="cash-form">
+          <div class="form-group">
+            <input type="text" class="form-control" id="cash-location" placeholder="I just spent money in...">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" id="cash-amount" placeholder="I spent in total...">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" id="cash-desc" placeholder="(Any other details)">
+          </div>
+          <button type="submit" class="btn btn-default" id="cash-submit" disabled="disabled">Submit</button>
+        </form>
+      </div>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-     
+    <script src="script.js"></script>
+    
   </body>
 </html>
