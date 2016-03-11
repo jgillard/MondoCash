@@ -105,7 +105,9 @@ $("#transaction-button").click(function() {
 /*** ON WINDOW LOAD, GET ACCESS KEY ***/
 
 window.onload = function() {
-  localStorage.setItem("expected_state", "70tbc17xyt9732ytc4780t23479");
+  var randomString = Math.random().toString(36).substring(7);
+  localStorage.setItem("expected_state", randomString);
+  $("#state").prop("value", randomString);
   var params = getUrlVars();
   if (params.state !== localStorage.getItem("expected_state")) {
     alert("state does not match expected");
