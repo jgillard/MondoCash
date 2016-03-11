@@ -27,9 +27,9 @@ function feedPost(title, body) {
     params: {
       title: title,
       image_url: "http://www.inmotionhosting.com/support/images/stories/icons/ecommerce/cash-dark.png",
-      background_color: "#FFFFE5" 
-    }    
-  }
+      background_color: "#FFFFE5"
+    }
+  };
   if (body) data.params.body = body;
 
   $.ajax({
@@ -75,14 +75,14 @@ $("#account-button").click(function() {
     } else {
       alert("Something went wrong");
     }
-  })
+  });
 });
 
 $("#balance-button").click(function() {
   queryMondo("https://api.getmondo.co.uk/balance", {account_id: account_id}, function(data) {
-    if (data.balance) { 
+    if (data.balance) {
       var message = data.balance > 5000 ? "Life is good :D" : "Oh dear...";
-      $("#home-header").fadeOut(600, function() { $("#home-header").html(message).fadeIn(); }); 
+      $("#home-header").fadeOut(600, function() { $("#home-header").html(message).fadeIn(); });
       $("#balance-button").text("£" + data.balance/100).fadeIn();
       $("#transaction-button").prop("disabled", false);
     }
@@ -95,7 +95,7 @@ $("#transaction-button").click(function() {
       var latest = data.transactions[data.transactions.length - 1];
       console.log(latest);
       if (latest.is_load === true) latest = data.transactions[data.transactions.length - 2];
-      message = latest.merchant.name === "Tesco" ? "Yawn" : "What's that?";
+      var message = latest.merchant.name === "Tesco" ? "Yawn" : "What's that?";
       $("#home-header").fadeOut(600, function() { $("#home-header").html(message).fadeIn(); });
       $("#transaction-button").text(latest.merchant.name).fadeIn();
     }
@@ -112,8 +112,8 @@ window.onload = function() {
     alert("state does not match expected");
   } else {
     getAccessKey(params.code);
-  }        
-}
+  }
+};
 
 function getUrlVars() {
   var vars = [], hash;
@@ -130,7 +130,7 @@ function getAccessKey(code) {
   var data = {
     code: code,
     redirect_uri: "https://dl.dropboxusercontent.com/u/2666739/MondoCash/main.html"
-  }
+  };
 
   $.ajax({
     url: "https://5bvpwp95yb.execute-api.eu-west-1.amazonaws.com/prod/mondo-lambda-auth",
