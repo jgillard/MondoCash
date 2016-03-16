@@ -7,15 +7,29 @@ $("#home-header, #cash-header").click(function() {
 
 $("#cash-form").submit(function() {
   var loc = $("#cash-location").val();
-  var amount = parseFloat($("#cash-amount").val());
+  var amount = $("#cash-amount").val();
   var desc = $("#cash-desc").val();
+
   if (isNaN(amount)) {
-    alert("That's NaN");
-  } else {
-    var title = "£" + amount.toFixed(2) + " @ " + loc;
-    feedPost(title, desc);
-  }
+    $("#cash-header").text("That's NaN");
+    $("#cash-amount").val("");
+    return false;
+  } else amount = parseFloat(amount);
+
+  var title = "£" + amount.toFixed(2) + " @ " + loc;
+  $("#cash-page").addClass("hidden");
+  $("#cash-prompt-page").removeClass("hidden");
+  $("#cash-prompt").text(title);
+  $("#cash-prompt-desc").text(desc);
+
+  $("#cash-prompt-send").data({"title": title, "desc": desc});
   return false;
+});
+
+$("#cash-prompt-send").click(function() {
+  var title = $("#cash-prompt-send").data().title;
+  var desc = $("#cash-prompt-send").data().desc;
+  feedPost(title, desc);
 });
 
 function feedPost(title, body) {

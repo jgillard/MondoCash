@@ -13,7 +13,7 @@ button {
 }
 
 p {
-  padding-top: 10% 
+  padding-top: 10%;
 }
 
 #cash-page .form-control {
@@ -31,7 +31,7 @@ p {
   margin-bottom: 5px;
 }
 
-#cash-page button {
+#cash-page, #cash-prompt-page button {
   margin-top: 20px;
   color: #555;
 }
