@@ -59,9 +59,12 @@ var Home = {
   transactionButton: function() {
     this.queryMondo("https://api.getmondo.co.uk/transactions", {account_id: localStorage.getItem("account_id"), "expand[]": "merchant"}, function(data) {
       if (data.transactions) {
-        var latest = data.transactions[data.transactions.length - 1];
-        console.log(latest);
-        if (latest.is_load === true) latest = data.transactions[data.transactions.length - 2];
+        var index = 1;
+        var latest = data.transactions[data.transactions.length - index];
+        while (latest.is_load === true) {
+          latest = data.transactions[data.transactions.length - ++index];
+          console.log(latest);
+        }
         var message = latest.merchant.name === "Tesco" ? "Yawn" : "What's that?";
         $("#home-header").fadeOut(600, function() { $("#home-header").html(message).fadeIn(); });
         $("#transaction-button").text(latest.merchant.name).fadeIn();
