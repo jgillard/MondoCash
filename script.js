@@ -103,7 +103,8 @@ var CashForm = {
       CashForm.showHomePage();
     });
 
-    $("#cash-form").submit(function() {
+    $("#cash-form").submit(function(e) {
+      e.preventDefault();
       CashForm.cashFormSubmit();
     });
   },
@@ -189,7 +190,7 @@ var s, CashPrompt = {
       success: function(data, textStatus, xhr){
         if (xhr.status !== 200) alert(xhr.status, textStatus);
         else {
-          $("#cash-submit").text("Done!");
+          $("#cash-prompt-send").text("Done!");
         }
       },
       failure: function(errMsg) { alert(errMsg); }
