@@ -154,6 +154,7 @@ var s, CashPrompt = {
   bindUIActions: function() {
     s.cashPromptSend.click(function() {
       CashPrompt.feedPost(s.cashPromptSend.data().title, s.cashPromptSend.data().desc);
+      // CashPrompt.showCashPage();
     });
 
     s.cashPromptCancel.click(function() {
