@@ -8,7 +8,7 @@ var CashPrompt = {
 
   bindUIActions: function () {
     $("#cash-prompt-send").click(function () {
-      CashPrompt.feedPost($("#cash-prompt-send").data().title, $("#cash-prompt-send").data().desc);
+      CashPrompt.feedPost();
       CashPrompt.showCashPage();
     });
 
@@ -21,7 +21,9 @@ var CashPrompt = {
     Router.showCashPage("", "");
   },
 
-  feedPost: function (title, body) {
+  feedPost: function () {
+    var title = $("#cash-prompt-send").data().title;
+    var body = $("#cash-prompt-send").data().desc;
     var data = {
       account_id: localStorage.getItem("account_id"),
       type: "basic",

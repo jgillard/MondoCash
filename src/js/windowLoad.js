@@ -1,3 +1,5 @@
+import Router from "./router";
+
 var WindowLoad = {
 
   init: function () {
@@ -26,14 +28,14 @@ var WindowLoad = {
   /*** HANDLE DIFFERENT AUTH LOCALSTORAGE CONFIGURATIONS ***/
 
   handleLogin: function () {
-    $("#login-page").removeClass("hidden");
+    Router.showHomePage();
     var randomString = Math.random().toString(36).substring(7);
     localStorage.setItem("expected_state", randomString);
     $("#state").prop("value", randomString);
   },
 
   handleLoggingIn: function () {
-    $("#home-page").removeClass("hidden");
+    Router.showHomePage();
     var params = this.getUrlVars();
     if (params.state !== localStorage.getItem("expected_state")) {
       alert("state does not match expected");
@@ -45,7 +47,7 @@ var WindowLoad = {
   handleRefreshToken: function () {
     // If refresh token valid for > 60 seconds longer
     if (Date.now() - localStorage.getItem("refresh_token_expiry") < -60000) {
-      $("#home-page").removeClass("hidden");
+      Router.showHomePage();
       $("#account-button").prop("disabled", false);
     } else this.getAccessKey();
   },

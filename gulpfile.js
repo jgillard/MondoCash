@@ -5,6 +5,7 @@ const browserify = require('browserify');
 const source = require('vinyl-source-stream');
 const babelify = require('babelify');
 const eslint = require('gulp-eslint');
+const gCrashSound = require('gulp-crash-sound');
 
 gulp.task('default', ['watch']);
 

@@ -4,6 +4,9 @@ var CashForm = {
 
   init: function() {
     this.bindUIActions();
+    if (localStorage.getItem("account_id")) {
+      $("#cash-submit").prop("disabled", false);
+    }
   },
 
   bindUIActions: function() {
