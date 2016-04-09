@@ -1,3 +1,5 @@
+import Router from "./router";
+
 var Home = {
 
   init: function() {
@@ -6,7 +8,7 @@ var Home = {
 
   bindUIActions: function() {
     $("#home-header").click(function () {
-      Home.showCashPage();
+      Router.showCashPage();
     });
 
     $("#account-button").click(function () {
@@ -20,11 +22,6 @@ var Home = {
     $("#transaction-button").click(function () {
       Home.transactionButton();
     });
-  },
-
-  showCashPage: function() {
-    $("#home-page").toggleClass("hidden");
-    $("#cash-page").toggleClass("hidden");
   },
 
   accountButton: function() {
@@ -44,7 +41,9 @@ var Home = {
   },
 
   balanceButton: function() {
-    this.queryMondo("https://api.getmondo.co.uk/balance", { account_id: localStorage.getItem("account_id") }, function (data) {
+    this.queryMondo("https://api.getmondo.co.uk/balance", {
+      account_id: localStorage.getItem("account_id")
+    }, function (data) {
       if (data.balance) {
         var message = data.balance > 5000 ? "Life is good :D" : "Oh dear...";
         $("#home-header").fadeOut(600, function () {
@@ -57,7 +56,10 @@ var Home = {
   },
 
   transactionButton: function() {
-    this.queryMondo("https://api.getmondo.co.uk/transactions", { account_id: localStorage.getItem("account_id"), "expand[]": "merchant" }, function (data) {
+    this.queryMondo("https://api.getmondo.co.uk/transactions", {
+      account_id: localStorage.getItem("account_id"),
+      "expand[]": "merchant"
+    }, function (data) {
       if (data.transactions) {
         var index = 1;
         var latest = data.transactions[data.transactions.length - index];

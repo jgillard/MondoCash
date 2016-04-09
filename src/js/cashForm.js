@@ -1,3 +1,5 @@
+import Router from "./router";
+
 var CashForm = {
 
   init: function() {
@@ -6,18 +8,13 @@ var CashForm = {
 
   bindUIActions: function() {
     $("#cash-header").click(function () {
-      CashForm.showHomePage();
+      Router.showHomePage();
     });
 
     $("#cash-form").submit(function (e) {
       e.preventDefault();
       CashForm.cashFormSubmit();
     });
-  },
-
-  showHomePage: function() {
-    $("#home-page").toggleClass("hidden");
-    $("#cash-page").toggleClass("hidden");
   },
 
   cashFormSubmit: function() {
@@ -32,10 +29,7 @@ var CashForm = {
     } else amount = parseFloat(amount);
 
     var title = "£" + amount.toFixed(2) + " @ " + loc;
-    $("#cash-page").addClass("hidden");
-    $("#cash-prompt-page").removeClass("hidden");
-    $("#cash-prompt").text(title);
-    $("#cash-prompt-desc").text(desc);
+    Router.showCashPromptPage(title, desc);
 
     $("#cash-prompt-send").data({ "title": title, "desc": desc });
     return false;

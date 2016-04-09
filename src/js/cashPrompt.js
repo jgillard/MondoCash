@@ -1,3 +1,5 @@
+import Router from "./router";
+
 var CashPrompt = {
 
   init: function () {
@@ -16,10 +18,7 @@ var CashPrompt = {
   },
 
   showCashPage: function () {
-    $("#cash-page").removeClass("hidden");
-    $("#cash-prompt-page").addClass("hidden");
-    $("#cash-prompt").text("");
-    $("#cash-prompt-desc").text("");
+    Router.showCashPage("", "");
   },
 
   feedPost: function (title, body) {
