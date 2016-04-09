@@ -7,7 +7,7 @@
     <title>Mondo Cash Tracker</title>
     <link rel="stylesheet" href="lib/bootstrap-3.3.6.min.css">
     <!-- <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'> -->
-    <link rel=stylesheet href="style.css">
+    <link rel=stylesheet href="css/style.css">
   </head>
   <body>
     <div class="container">
@@ -15,15 +15,15 @@
     <div id="login-page" class="hidden">
         <h1>Mondo Cash Tracker</h1>
         <form id="login_redirect_form" action="https://auth.getmondo.co.uk/" method="get">
-          <input type="hidden" name="client_id" value="oauthclient_000095McRaxSoz81hJkmdl" /> 
-          <input type="hidden" name="redirect_uri" value="https://dl.dropboxusercontent.com/u/2666739/MondoCash/index.html" /> 
-          <input type="hidden" name="response_type" value="code" /> 
-          <input type="hidden" name="state" id="state" value="" /> 
+          <input type="hidden" name="client_id" value="oauthclient_000095McRaxSoz81hJkmdl" />
+          <input type="hidden" name="redirect_uri" value="https://dl.dropboxusercontent.com/u/2666739/MondoCash/index.html" />
+          <input type="hidden" name="response_type" value="code" />
+          <input type="hidden" name="state" id="state" value="" />
           <button class="btn btn-default btn-block" id="login-button">Login to Mondo</button>
         </form>
         <p>by James Gillard</p>
       </div>
-    
+
       <div id="home-page" class="hidden">
         <h1 id="home-header">Hi there!</h1>
         <button class="btn btn-default btn-block" id="account-button" disabled="disabled">
@@ -36,7 +36,7 @@
           <div id="transaction-button-div">Where did the money go?</div>
         </button>
       </div>
-      
+
       <div id="cash-page" class="hidden">
         <h1 id="cash-header">What did you buy?</h1>
         <form id="cash-form">
@@ -61,7 +61,7 @@
 
     <script src="lib/jquery-1.12.2.min.js"></script>
     <script src="lib/bootstrap-3.3.6.min.js"></script>
-    <script src="script.js"></script>
-    
+    <script src="bundle.js"></script>
+
   </body>
 </html>
